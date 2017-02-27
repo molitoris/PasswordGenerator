@@ -1,22 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PW_Gen;
 
 import java.io.IOException;
 import java.security.SecureRandom;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.*;
 import javafx.stage.Stage;
 
 /**
- *
- * @author rafael
+ * generates strings of characters by random.
+ * <h4>Implementation notes</h4>
+ * Before a password is generated the usable characters should be specified.
  */
 public class PasGen extends Application {
 
@@ -31,7 +26,6 @@ public class PasGen extends Application {
     private int length;
 
     private Stage primaryStage;
-    private BorderPane mainLayout;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -48,16 +42,24 @@ public class PasGen extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
+    /**
+     * initializes the PasGen with the usable letters and the length.
+     *
+     * @param letters the used letters for generating the password
+     * @param length the length of the generated password
+     */
     public PasGen(String letters, int length) {
         this.usableChar = letters.toCharArray();
         this.length = length;
     }
 
+    /**
+     * initializes the PasGen without usable letters and a length of 10.
+     */
     public PasGen() {
-        this.usableChar = "".toCharArray();
+        this.usableChar = new char[0];
         this.length = 10;
     }
 
@@ -69,15 +71,20 @@ public class PasGen extends Application {
      * SecureRandom with its default configuration.
      *
      * @return the randomly generated password
+     * @throws IllegalStateException if there are no letters in usedChar.
      */
     public char[] genRandomPassword() {
-        char[] password = new char[length];
-        SecureRandom random = new SecureRandom();
+        if (usableChar.length > 0) {
+            char[] password = new char[length];
+            SecureRandom random = new SecureRandom();
 
-        for (int i = 0; i < length; i++) {
-            password[i] = usableChar[random.nextInt(usableChar.length)];
+            for (int i = 0; i < length; i++) {
+                password[i] = usableChar[random.nextInt(usableChar.length)];
+            }
+            return password;
+        } else {
+            throw new IllegalStateException("There are no usable characters set.");
         }
-        return password;
     }
 
     /**
@@ -95,8 +102,13 @@ public class PasGen extends Application {
             throw new IllegalArgumentException("Length needs to be larger than 0");
         }
     }
-    
-    public boolean isNotEmpty(){
+
+    /**
+     * Checks if the usedLetter is empty.
+     *
+     * @return ture if usableChar is not empty.
+     */
+    public boolean isNotEmpty() {
         return usableChar.length > 0;
     }
 
@@ -127,28 +139,30 @@ public class PasGen extends Application {
      */
     public void addUsableLetter(String letters) {
         if (letters == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("No letters are added");
         } else if (letters.length() > 0) {
             StringBuilder sb = new StringBuilder();
             boolean containsLetter;
 
-            for (char c : letters.toCharArray()) {
+            for (char newC : letters.toCharArray()) {
                 containsLetter = false;
-                for (char usedC : usableChar) {
-                    if (c == usedC) {
+                for (char prevC : usableChar) {
+                    if (newC == prevC) {
                         containsLetter = true;
                         break;
                     }
                 }
                 if (!containsLetter) {
-                    sb.append(c);
+                    sb.append(newC);
                 }
             }
 
             char[] prevChar = usableChar;
             usableChar = new char[usableChar.length + sb.length()];
             char[] newChar = sb.toString().toCharArray();
-            /* prevChar and newChar are copied into the usableChar   */
+            /*
+             * prevChar and newChar are copied into usableChar
+             */
             System.arraycopy(prevChar, 0, usableChar, 0, prevChar.length);
             System.arraycopy(newChar, 0, usableChar, prevChar.length, newChar.length);
         }
