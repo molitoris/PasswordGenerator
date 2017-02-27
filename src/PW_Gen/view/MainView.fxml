@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PW_Gen.view.MainViewController">
+   <right>
+      <GridPane prefWidth="250.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <CheckBox fx:id="upperCheck" mnemonicParsing="false" selected="true" text="Upper letters">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="ABCDEFGHIJKLMNOPQRSTUVWXYZ" />
+               </tooltip>
+            </CheckBox>
+            <CheckBox fx:id="lowerCheck" mnemonicParsing="false" selected="true" text="Lower letters" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="abcdefghijklmnopqrstuvwxyz" />
+               </tooltip>
+            </CheckBox>
+            <CheckBox fx:id="numberCheck" mnemonicParsing="false" selected="true" text="Numbers" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="0123456789" />
+               </tooltip>
+            </CheckBox>
+            <CheckBox fx:id="punctCheck" mnemonicParsing="false" text="Punctuation" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="+-*/()[]{}_@#§" />
+               </tooltip>
+            </CheckBox>
+            <Label text="Quantity" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+            <Label text="Length" GridPane.rowIndex="5" />
+            <Button fx:id="generateBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGeneration" text="Generate" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Spinner fx:id="quantitySpin" amountToStepBy="1" initialValue="10" max="100" min="1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Spinner fx:id="lengthSpin" amountToStepBy="1" initialValue="8" max="50" min="4" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Additional letters" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <TextField fx:id="additionField" GridPane.columnSpan="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </right>
+   <center>
+      <TextArea fx:id="outputArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <Label fx:id="infoLable" BorderPane.alignment="CENTER_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="5.0" top="10.0" />
+         </BorderPane.margin></Label>
+   </bottom>
+</BorderPane>
